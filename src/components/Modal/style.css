@@ -11,7 +11,7 @@
 
 .modal_content {
   width: 500px;
-  margin: 15%;
+  margin: 15% auto;
   background-color: #272727;
   border-radius: 5px;
   position: relative;
@@ -33,4 +33,8 @@
 
 .modal_close:hover {
   color: red;
+}
+
+.modal_body {
+  padding: 16px 20px;
 }

@@ -2,6 +2,9 @@ export const Card = (props) => {
 
   return (
     <div
+      
+      onClick={() => props.onClick()}
+
       style={{
         backgroundColor: '#303030',
         padding: 20,

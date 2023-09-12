@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef, useState} from 'react'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { Card } from './components/Card'
@@ -17,30 +17,62 @@ import './styles/global.css'
 
 const requisicao = [
   {
-    "id": 1,
-    "titulo": "Missão Impossível 2",
-    "imagem": card1
-  },
-  {
-    "id": 2,
-    "titulo": "Missão Impossível 3",
-    "imagem": card2
-  },
-  {
-    "id": 3,
-    "titulo": "Missão Impossível 5",
-    "imagem": card3
-  },
-  {
-    "id": 4,
-    "titulo": "Missão Impossível 7",
-    "imagem": card4
-  }
+		"id": 1,
+		"titulo": "Missão Impossível 2",
+		"imagem": card1,
+		"data": "22 de junho de 2000",
+		"direcao": "John Woo",
+		"elenco": "Tom Cruise, Dougray Scott, Thandiwe Newton",
+		"sinopse": "Sem sinópse."
+	},
+	{
+		"id": 2,
+		"titulo": "Missão Impossível 3",
+		"imagem": card2,
+		"data": "5 de maio de 2006",
+		"direcao": "J.J. Abrams",
+		"elenco": "Tom Cruise, Philip Seymour Hoffman, Ving Rhames",
+		"sinopse": "Sem sinópse."
+	},
+	{
+		"id": 3,
+		"titulo": "Missão Impossível 5",
+		"imagem": card3,
+		"data": "13 de agosto de 2015",
+		"direcao": "Christopher McQuarrie",
+		"elenco": "Tom Cruise, Jeremy Renner, Simon Pegg",
+		"sinopse": "Ethan Hunt luta para expor uma organização secreta chamada Sindicato."
+	},
+	{
+		"id": 4,
+		"titulo": "Missão Impossível 7",
+		"imagem": card4,
+		"data": "13 de julho de 2023",
+		"direcao": "Christopher McQuarrie",
+		"elenco": "Tom Cruise, Hayley Atwell, Ving Rhames",
+		"sinopse": "No novo capítulo da franquia Missão Impossível, o agente Ethan Hunt e sua equipe partem em um novo desafio para rastrear uma arma que, se cair em mãos erradas, pode ameaçar toda  humanidade."
+	},
 ]
 
 
 // https://github.com/profchines
 function App() {
+
+    const refFilmeModal = useRef({
+      titulo: "",
+      data: "",
+      direcao: "",
+      elenco: "",
+      sinopse: ""
+
+    })
+
+    const [showModal, setShowModal] = useState(false)
+
+    function onClickCard(filme) {
+      refFilmeModal.current = filme
+      setShowModal(true)
+    }
 
     return (
         <>
@@ -67,24 +99,18 @@ function App() {
                     key={filme.id}
                     imagem={filme.imagem}
                     titulo={filme.titulo}
+                    onClick={() => onClickCard(filme)}
                     />
                   )
                 })
               }
 
-            {/**
-              <Card imagem={card1} />
-              <Card imagem={card2} />
-              <Card imagem={card3} />
-              <Card imagem={card4} />
-             */}
-
 
 
             </div>
-            <Modal>
+            <Modal show={showModal} setShow={setShowModal}>
               <ModalHeader>
-                <h2>Chaves</h2>
+                <h2>{refFilmeModal.current.titulo}</h2>
               </ModalHeader>
 
               <ModalBody>
@@ -92,7 +118,7 @@ function App() {
                   fontSize: '0.8rem',
                   marginBottom: 10,
                 }}>
-                  03/09/2023
+                  {refFilmeModal.current.data}
                 </p>
                 <div style={{
                   display: 'flex',
@@ -108,9 +134,33 @@ function App() {
                   <p style={{
                     fontSize: '0.8rem',
                   }}>
-                    Seu Madruga
+                    {refFilmeModal.current.direcao}
                   </p>
                 </div>
+
+                <div style={{
+                  display: 'flex',
+                  marginBottom: 10,
+                }}>
+                  <p style={{
+                    fontSize: '0.8rem',
+                    color: '#b3b3b3'
+                  }}>
+                    Elenco:
+                  </p>
+
+                  <p style={{
+                    fontSize: '0.8rem',
+                  }}>
+                    {refFilmeModal.current.elenco}
+                  </p>
+                </div>
+                <p style={{
+                  TextAlign:'justify',
+                  marginBottom: 10
+                }}>
+                  {refFilmeModal.current.sinopse}
+                </p>
               </ModalBody>
             </Modal>
 
